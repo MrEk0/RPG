@@ -7,11 +7,20 @@ public class Weapon:ScriptableObject
     [SerializeField] GameObject weaponPrefab = null;//if we don't have a weapon
     [SerializeField] float attackRange = 2f;
     [SerializeField] int damage = 10;
+    [SerializeField] bool isRightHand = true;
 
-    public void Spawner(Transform handPosition, Animator animator)
+    Transform handPosition;
+   
+
+    public void Spawner(Transform rightHand, Transform leftHand, Animator animator)
     {
         if(weaponPrefab!=null)
         {
+            if (isRightHand)
+                handPosition = rightHand;
+            else
+                handPosition = leftHand;
+
             Instantiate(weaponPrefab, handPosition);
         }
         if (animatorOverrideController != null)

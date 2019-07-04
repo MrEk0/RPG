@@ -7,7 +7,8 @@ public class Fighter : MonoBehaviour, IAction
     //[SerializeField] float attackRange = 2f;
     [SerializeField] float timeBetweenAttacks = 2;
     //[SerializeField] int damage = 10;
-    [SerializeField] Transform weaponPosition = null;
+    [SerializeField] Transform rightHandPosition = null;
+    [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
   
 
@@ -50,7 +51,7 @@ public class Fighter : MonoBehaviour, IAction
     public void EquipWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
-        currentWeapon.Spawner(weaponPosition, animator);
+        currentWeapon.Spawner(rightHandPosition, leftHandPosition, animator);
     }
 
     private void AttackBehaviour()
