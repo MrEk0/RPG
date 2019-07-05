@@ -31,7 +31,7 @@ MonoBehaviour:
   timeBetweenAttacks: 1
   rightHandPosition: {fileID: 1344039699264554987}
   leftHandPosition: {fileID: 1344039699264497539}
-  defaultWeapon: {fileID: 11400000, guid: 3340292834f0fc4448d59969d65f431e, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: 9316e1c583f985a40b4a39cc0531c777, type: 2}
 --- !u!114 &2134553870726279497
 MonoBehaviour:
   m_ObjectHideFlags: 0

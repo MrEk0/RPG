@@ -7,12 +7,12 @@ using UnityEngine;
 [ExecuteAlways]
 public class SaveableEntity : MonoBehaviour
 {
-    [SerializeField] string uniqueUdentifier = "";
+    [SerializeField] string uniqueIdentifier = "";
     static Dictionary<string, SaveableEntity> globalLookup = new Dictionary<string, SaveableEntity>();
 
     public string GetUniqueIdentifier()
     {
-        return uniqueUdentifier;
+        return uniqueIdentifier;
     }
 
     public object CaptureState()
@@ -41,7 +41,7 @@ public class SaveableEntity : MonoBehaviour
         //GetComponent<ActionSchedule>().CancelAllControls();
     }
 
-#if UNITYE_DITOR
+#if UNITY_EDITOR
     private void Update()
     {
         if (Application.IsPlaying(gameObject))
@@ -50,9 +50,9 @@ public class SaveableEntity : MonoBehaviour
             return;
 
         SerializedObject serializedObject = new SerializedObject(this);
-        SerializedProperty property= serializedObject.FindProperty("uniqueUdentifier");
+        SerializedProperty property= serializedObject.FindProperty("uniqueIdentifier");
 
-        if(string.IsNullOrEmpty(property.stringValue) && !IsUnique(property.stringValue))
+        if(string.IsNullOrEmpty(property.stringValue) /*&&*/|| !IsUnique(property.stringValue))
         {
             property.stringValue = Guid.NewGuid().ToString();
             serializedObject.ApplyModifiedProperties();

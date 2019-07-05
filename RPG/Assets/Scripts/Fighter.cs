@@ -85,6 +85,21 @@ public class Fighter : MonoBehaviour, IAction
         target.TakeDamage(currentWeapon.GetDamage());
     }
 
+    private void Shoot()
+    {
+        if (target == null)
+            return;
+
+        if(currentWeapon.isHasProjectile())
+        {
+            currentWeapon.LaunchTheProjectile(rightHandPosition, leftHandPosition, target);
+        }
+        else
+        {
+            Hit();
+        }
+    }
+
     private bool GetIsInRange()
     {
         return Vector3.Distance(transform.position, target.transform.position) > currentWeapon.GetRange();

@@ -8,18 +8,26 @@ public class Health : MonoBehaviour, ISaveable
 
     public bool IsAlive { get; private set; } = true;
 
-    public void TakeDamage(int damage)
+    private void Update()
     {
-        //health = Mathf.Max(health - damage);
-        if(health>0)
-        {
-            health -= damage;
-            print(health);
-        }
-        else
+        if(health<=0)
         {
             Death();
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        //health = Mathf.Max(health - damage, 0);
+        //if (health>0)
+        //{
+            health -= damage;
+        //    print(health);
+        //}
+        //else
+        //{
+        //    Death();
+        //}
     }
 
     private void Death()
@@ -28,6 +36,7 @@ public class Health : MonoBehaviour, ISaveable
         {
             GetComponent<Animator>().SetTrigger("Death");
             GetComponent<ActionSchedule>().CancelAllControls();
+            //GetComponent<CapsuleCollider>().enabled = false;//to make arrow fly through body
             IsAlive = false;
         }
     }

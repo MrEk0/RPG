@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName ="Weapon", menuName ="Weapons/Create a new Weapon", order =0)]
 public class Weapon:ScriptableObject
@@ -8,25 +9,66 @@ public class Weapon:ScriptableObject
     [SerializeField] float attackRange = 2f;
     [SerializeField] int damage = 10;
     [SerializeField] bool isRightHand = true;
+    [SerializeField] GameObject projectilePrefab = null;
 
     Transform handPosition;
-   
+
+    const string weaponName = "Weapon";
 
     public void Spawner(Transform rightHand, Transform leftHand, Animator animator)
     {
+        DestroyOldWeapon(rightHand, leftHand);
+
         if(weaponPrefab!=null)
         {
-            if (isRightHand)
-                handPosition = rightHand;
-            else
-                handPosition = leftHand;
+            handPosition = GetHandPosition(rightHand, leftHand);
 
-            Instantiate(weaponPrefab, handPosition);
+            GameObject weapon=Instantiate(weaponPrefab, handPosition);
+            weapon.name = weaponName;
         }
         if (animatorOverrideController != null)
         {
             animator.runtimeAnimatorController = animatorOverrideController;
         }
+    }
+
+    private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+    {
+       Transform oldWeapon = rightHand.Find(weaponName);
+        if (oldWeapon == null)
+        {
+            oldWeapon = leftHand.Find(weaponName);
+        }
+
+        if(oldWeapon==null)
+        {
+            return;
+        }
+        oldWeapon.name = "Destroyed";
+        Destroy(oldWeapon.gameObject);
+    }
+
+    private Transform GetHandPosition(Transform rightHand, Transform leftHand)
+    {
+        if (isRightHand)
+            handPosition = rightHand;
+        else
+            handPosition = leftHand;
+        return handPosition;
+    }
+
+    public void LaunchTheProjectile(Transform rightHand, Transform leftHand, Health target)
+    {
+        if (projectilePrefab == null) return;
+
+        GameObject projectile = Instantiate(projectilePrefab, GetHandPosition(rightHand, leftHand).position, Quaternion.identity);
+        projectile.GetComponent<Projectile>().targetInstall(target, damage);
+        projectile.GetComponent<Projectile>().goalForProjectile();
+    }
+
+    public bool isHasProjectile()
+    {
+        return projectilePrefab;
     }
 
     public float GetRange()
