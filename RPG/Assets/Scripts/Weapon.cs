@@ -26,9 +26,17 @@ public class Weapon:ScriptableObject
             GameObject weapon=Instantiate(weaponPrefab, handPosition);
             weapon.name = weaponName;
         }
+
+        var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;//RuntimeAnimatorController if it's not null
         if (animatorOverrideController != null)
         {
             animator.runtimeAnimatorController = animatorOverrideController;
+            //animator.runtimeAnimatorController = animatorOverrideController.runtimeAnimatorController;
+        }
+        else if (overrideController != null)
+        {
+            animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;//find parent and put in the runtime animator
+                                                                                              //in case of overridden
         }
     }
 

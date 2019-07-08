@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fighter : MonoBehaviour, IAction
+public class Fighter : MonoBehaviour, IAction, ISaveable
 {
     //[SerializeField] float attackRange = 2f;
     [SerializeField] float timeBetweenAttacks = 2;
@@ -10,6 +10,7 @@ public class Fighter : MonoBehaviour, IAction
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
+    [SerializeField] string defaultWeaponName = "Unarmed";
   
 
     Mover mover;
@@ -25,6 +26,8 @@ public class Fighter : MonoBehaviour, IAction
         mover = GetComponent<Mover>();
         actionSchedule = GetComponent<ActionSchedule>();
         animator = GetComponent<Animator>();
+
+        if(currentWeapon==null)
         EquipWeapon(defaultWeapon);
     }
 
@@ -128,5 +131,16 @@ public class Fighter : MonoBehaviour, IAction
         }
         return false;
     }
-  
+
+    public object CaptureState()
+    {
+        return currentWeapon.name;
+    }
+
+    public void RestoreState(object state)
+    {
+        string weaponName = (string)state;
+        Weapon weapon = Resources.Load<Weapon>(weaponName);
+        EquipWeapon(weapon);
+    }
 }

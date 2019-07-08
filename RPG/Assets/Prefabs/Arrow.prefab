@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   isTargeted: 0
+  fireTouchingParticles: {fileID: 316162189190057138, guid: 80a98fae97b77ec48969aeb7827c5e4e,
+    type: 3}
 --- !u!65 &5794884240321944555
 BoxCollider:
   m_ObjectHideFlags: 0

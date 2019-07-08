@@ -10,9 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e348eea8cfb6e2c45a5d1e10ab086e60, type: 3}
-  m_Name: Unarmed
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  animatorOverrideController: {fileID: 0}
-  weaponPrefab: {fileID: 0}
-  attackRange: 3
-  damage: 5
+  animatorOverrideController: {fileID: 22100000, guid: e9c59bfd6f003844da7e4db22fbad96b,
+    type: 2}
+  weaponPrefab: {fileID: 836563942694818154, guid: 2e34272ac18c297488f3f94f486284f9,
+    type: 3}
+  attackRange: 10
+  damage: 10
+  isRightHand: 0
+  projectilePrefab: {fileID: 3563307332076969791, guid: 9d58dce514e98204f8ad5e692f7cf3a0,
+    type: 3}

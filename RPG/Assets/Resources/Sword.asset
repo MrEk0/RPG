@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e348eea8cfb6e2c45a5d1e10ab086e60, type: 3}
-  m_Name: EnemyBow
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  animatorOverrideController: {fileID: 22100000, guid: e9c59bfd6f003844da7e4db22fbad96b,
+  animatorOverrideController: {fileID: 22100000, guid: 25250fc2d9849a747a986f5405593801,
     type: 2}
-  weaponPrefab: {fileID: 836563942694818154, guid: 2e34272ac18c297488f3f94f486284f9,
+  weaponPrefab: {fileID: 1118176198328539183, guid: 8efe2c478e9b7e7439bd0d99b389f45a,
     type: 3}
-  attackRange: 15
+  attackRange: 3
   damage: 10
-  isRightHand: 0
-  projectilePrefab: {fileID: 3563307332076969791, guid: 00c8bf900740e4643bd77bf115eeed6f,
-    type: 3}
+  isRightHand: 1
+  projectilePrefab: {fileID: 0}

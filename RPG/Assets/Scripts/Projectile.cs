@@ -6,9 +6,10 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] bool isTargeted;
+    [SerializeField] GameObject fireTouchingParticles;
 
     Transform prTransform;
-    Health target;
+    Health target=null;
     int damage;
 
     private void Start()
@@ -16,6 +17,7 @@ public class Projectile : MonoBehaviour
         prTransform = GetComponent<Transform>();//to get rid of transform in Update;?
         prTransform.LookAt(goalForProjectile());
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +30,9 @@ public class Projectile : MonoBehaviour
         }
 
         prTransform.Translate(Vector3.forward * speed * Time.deltaTime);
-        
+
+        Destroy(gameObject, 3);
+
     }
 
     //private void OnCollisionEnter(Collision collision)
@@ -51,16 +55,19 @@ public class Projectile : MonoBehaviour
     {
         if (collider.GetComponent<Health>()==target)
         {
-            //Debug.Log("Enemy was shot");
             if (!target.IsAlive)
                 return;
 
             target.TakeDamage(damage);
+
+            if(fireTouchingParticles!=null)
+            {
+                GameObject particles = Instantiate(fireTouchingParticles, transform.position, transform.rotation);
+                Destroy(particles,1);
+            }
+            
             Destroy(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject, 3);
+            
         }
     }
 
@@ -73,9 +80,9 @@ public class Projectile : MonoBehaviour
     public Vector3 goalForProjectile()
     {
         CapsuleCollider collider = target.GetComponent<CapsuleCollider>();
-        if(collider!=null)
+        if (collider != null)
         {
-            return target.transform.position + Vector3.up*collider.height / 2;
+            return target.transform.position + Vector3.up * collider.height / 2;
         }
         return target.transform.position;
     }
