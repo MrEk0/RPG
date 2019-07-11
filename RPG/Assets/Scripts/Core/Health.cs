@@ -8,9 +8,23 @@ public class Health : MonoBehaviour, ISaveable
 
     public bool IsAlive { get; private set; } = true;
 
+    private bool isInstalled = false;//?????
+
+    private void Awake()
+    {
+        health = GetComponent<BaseStats>().GetHealth();
+        Debug.Log(health);
+    }
+
     private void Update()
     {
-        if(health<=0)
+        if(!isInstalled)//????
+        {
+            health = GetComponent<BaseStats>().GetHealth();///?????
+            isInstalled = true;///????
+        }
+
+        if (health<=0)
         {
             Death();
         }
@@ -22,7 +36,7 @@ public class Health : MonoBehaviour, ISaveable
         //if (health>0)
         //{
             health -= damage;
-        //    print(health);
+            print(health);
         //}
         //else
         //{

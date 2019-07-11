@@ -10,14 +10,14 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
-    [SerializeField] string defaultWeaponName = "Unarmed";
+    //[SerializeField] string defaultWeaponName = "Unarmed";
   
 
     Mover mover;
     Health target;
     ActionSchedule actionSchedule;
     Animator animator;
-    Weapon currentWeapon;
+    Weapon currentWeapon=null;
     float timeSinceLastAttack = Mathf.Infinity;
 
     // Start is called before the first frame update
