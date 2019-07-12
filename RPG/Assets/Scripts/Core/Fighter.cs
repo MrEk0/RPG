@@ -85,7 +85,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         if (target == null)
             return;
 
-        target.TakeDamage(currentWeapon.GetDamage());
+        target.TakeDamage(gameObject, currentWeapon.GetDamage());
     }
 
     private void Shoot()
@@ -95,7 +95,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
 
         if(currentWeapon.isHasProjectile())
         {
-            currentWeapon.LaunchTheProjectile(rightHandPosition, leftHandPosition, target);
+            currentWeapon.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target);
         }
         else
         {
@@ -142,5 +142,10 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         string weaponName = (string)state;
         Weapon weapon = Resources.Load<Weapon>(weaponName);
         EquipWeapon(weapon);
+    }
+
+    public Health GetTarget()
+    {
+        return target;
     }
 }

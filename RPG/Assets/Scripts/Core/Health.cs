@@ -4,44 +4,49 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, ISaveable
 {
-    [SerializeField] int health = 100;
+    [SerializeField] float health = 100;
 
     public bool IsAlive { get; private set; } = true;
 
     private bool isInstalled = false;//?????
+    BaseStats baseStats;
+    private float startHealth;
 
     private void Awake()
     {
-        health = GetComponent<BaseStats>().GetHealth();
-        Debug.Log(health);
+        baseStats = GetComponent<BaseStats>();
+        startHealth= baseStats.GetStat(Stats.Health);
+        //health = GetComponent<BaseStats>().GetHealth();
+        //health = startHealth;
+        Debug.Log(startHealth);
     }
 
     private void Update()
     {
-        if(!isInstalled)//????
+        if (!isInstalled)//????
         {
-            health = GetComponent<BaseStats>().GetHealth();///?????
+            health = GetComponent<BaseStats>().GetStat(Stats.Health);///?????
             isInstalled = true;///????
-        }
-
-        if (health<=0)
-        {
-            Death();
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(GameObject initiator, int damage)
     {
-        //health = Mathf.Max(health - damage, 0);
-        //if (health>0)
-        //{
-            health -= damage;
-            print(health);
-        //}
-        //else
-        //{
-        //    Death();
-        //}
+        health -= damage;
+        if (health <= 0)
+        {
+            Death();
+            AwardXP(initiator);
+        }
+    }
+
+    private void AwardXP(GameObject initiator)
+    {
+        Experience experience = initiator.GetComponent<Experience>();
+        if (experience == null)
+            return;
+
+        experience.GainExperience(baseStats.GetStat(Stats.AwardXP));
     }
 
     private void Death()
@@ -68,5 +73,10 @@ public class Health : MonoBehaviour, ISaveable
         {
             Death();
         }
+    }
+
+    public float GetHealth()
+    {
+        return 100 * (health / startHealth);
     }
 }

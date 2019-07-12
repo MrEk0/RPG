@@ -7,13 +7,22 @@ public class Progression : ScriptableObject
 {
     [SerializeField] ProgressionCharacterClass[] characters = null;
 
-    public int GetHealth(CharacterClass character, int level)
+    public float GetStat(Stats stat, CharacterClass character, int level)
     {
         foreach(ProgressionCharacterClass progressClass in characters)
         {
-            if(progressClass.characterClass==character)
+            if (progressClass.characterClass != character)
+                continue;
+
+            foreach (ProgressionStatsClass progressionStats in progressClass.stats)
             {
-                return progressClass.health[level-1];
+                if (progressionStats.stat != stat)
+                    continue;
+
+                if (progressionStats.levels.Length < level)
+                    continue;
+
+                return progressionStats.levels[level - 1];
             }
         }
         return 0;
@@ -23,9 +32,15 @@ public class Progression : ScriptableObject
     class ProgressionCharacterClass
     {
         public CharacterClass characterClass;
-        public int[] health;
-        public int[] damage;
+        public ProgressionStatsClass[] stats;
+        //public float[] health;
+        //public int[] damage;        
+    }
 
-        
+    [System.Serializable]
+    class ProgressionStatsClass
+    {
+        public Stats stat;
+        public float[] levels;
     }
 }

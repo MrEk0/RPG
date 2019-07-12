@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
 
     Transform prTransform;
     Health target=null;
+    GameObject initiator = null;
     int damage;
 
     private void Start()
@@ -58,7 +59,7 @@ public class Projectile : MonoBehaviour
             if (!target.IsAlive)
                 return;
 
-            target.TakeDamage(damage);
+            target.TakeDamage(initiator, damage);
 
             if(fireTouchingParticles!=null)
             {
@@ -71,10 +72,11 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void targetInstall(Health target, int damage)
+    public void targetInstall(GameObject initiator, Health target, int damage)
     {
         this.target = target;
         this.damage = damage;
+        this.initiator = initiator;
     }
 
     public Vector3 goalForProjectile()
