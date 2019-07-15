@@ -7,34 +7,44 @@ public class Progression : ScriptableObject
 {
     [SerializeField] ProgressionCharacterClass[] characters = null;
 
+    Dictionary<CharacterClass, Dictionary<Stats, float[]>> lookupDictionary;//to build it only one time
+
     public float GetStat(Stats stat, CharacterClass character, int level)
     {
-        foreach(ProgressionCharacterClass progressClass in characters)
+        BuildLookup();
+
+       float[] levels=lookupDictionary[character][stat];
+        if(levels.Length<level)
         {
-            if (progressClass.characterClass != character)
-                continue;
+            return 0;
+        }
+        return levels[level - 1];
+    }
+
+    private void BuildLookup()
+    {
+        if (lookupDictionary != null)
+            return;
+
+        lookupDictionary = new Dictionary<CharacterClass, Dictionary<Stats, float[]>>();
+
+        foreach (ProgressionCharacterClass progressClass in characters)
+        {
+            var statLookupDictionary = new Dictionary<Stats, float[]>();
 
             foreach (ProgressionStatsClass progressionStats in progressClass.stats)
             {
-                if (progressionStats.stat != stat)
-                    continue;
-
-                if (progressionStats.levels.Length < level)
-                    continue;
-
-                return progressionStats.levels[level - 1];
+                statLookupDictionary[progressionStats.stat] = progressionStats.levels;
             }
+            lookupDictionary[progressClass.characterClass] = statLookupDictionary;
         }
-        return 0;
     }
 
     [System.Serializable]
     class ProgressionCharacterClass
     {
         public CharacterClass characterClass;
-        public ProgressionStatsClass[] stats;
-        //public float[] health;
-        //public int[] damage;        
+        public ProgressionStatsClass[] stats;       
     }
 
     [System.Serializable]
