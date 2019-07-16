@@ -8,11 +8,14 @@ public class SavingWrapper : MonoBehaviour
 
     [SerializeField] float fadeInTime = 1f;
 
+    SavingSystem savingSystem;
+
     private IEnumerator Start()
     {
         Fader fader = FindObjectOfType<Fader>();
+        savingSystem = GetComponent<SavingSystem>();
         fader.FadeOutImmediate();//black screen at the brginning
-        yield return GetComponent<SavingSystem>().LoadLastScene(fileName);
+        yield return savingSystem.LoadLastScene(fileName);
         yield return fader.FadeIn(fadeInTime);
     }
 
@@ -27,15 +30,24 @@ public class SavingWrapper : MonoBehaviour
         {
             Load();
         }
+        if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            Delete();
+        }
     }
 
     public void Load()
     {
-        GetComponent<SavingSystem>().Load(fileName);
+        savingSystem.Load(fileName);
     }
 
     public void Save()
     {
-        GetComponent<SavingSystem>().Save(fileName);
+        savingSystem.Save(fileName);
+    }
+
+    public void Delete()
+    {
+        savingSystem.Delete(fileName);
     }
 }

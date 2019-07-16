@@ -96,6 +96,11 @@ public class SavingSystem : MonoBehaviour
         RestoreState(LoadFile(fileName));
     }
 
+    public void Delete(string fileName)
+    {
+        File.Delete(GetPathFromFile(fileName));
+    }
+
     private Dictionary<string, object> LoadFile(string fileName)
     {
         string path = GetPathFromFile(fileName);

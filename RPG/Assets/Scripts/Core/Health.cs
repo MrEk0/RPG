@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, ISaveable
 {
-    [SerializeField] float health = 100;
+    [SerializeField] float health = -1f;
 
     public bool IsAlive { get; private set; } = true;
 
@@ -15,10 +15,8 @@ public class Health : MonoBehaviour, ISaveable
     private void Awake()
     {
         baseStats = GetComponent<BaseStats>();
+        //if(health<0)
         startHealth= baseStats.GetStat(Stats.Health);
-        //health = GetComponent<BaseStats>().GetHealth();
-        //health = startHealth;
-        Debug.Log(startHealth);
     }
 
     private void Update()
@@ -67,7 +65,7 @@ public class Health : MonoBehaviour, ISaveable
 
     public void RestoreState(object state)
     {
-        health = (int)state;
+        health = (float)state;
 
         if(health<=0)
         {
