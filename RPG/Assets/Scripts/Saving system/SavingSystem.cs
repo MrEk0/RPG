@@ -18,8 +18,10 @@ public class SavingSystem : MonoBehaviour
             int lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
             if(lastSceneBuildIndex!=SceneManager.GetActiveScene().buildIndex)
             {
-                yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);
-            }          
+                yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to determine if the operation has completed
+                //Loads the Scene asynchronously in the background
+                //finishes after Awake but before Start which can cause the problem
+            }
         }
        
         RestoreState(state);
