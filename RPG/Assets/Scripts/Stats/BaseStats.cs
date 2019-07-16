@@ -8,11 +8,25 @@ public class BaseStats : MonoBehaviour
     [SerializeField] CharacterClass characterClass;
     [SerializeField] Progression progression = null;
 
-    private void Update()
+    private int currentLevel = 0;
+    Experience experience;
+
+    private void Start()
     {
-        if(gameObject.tag=="Player")
+        currentLevel = CalculateLevel();
+        experience = GetComponent<Experience>();
+        if(experience!=null)
         {
-            print(GetLevel());
+            experience.onExperienceGained += UpdateLevel;//subscribe delegate
+        }
+    }
+
+    private void UpdateLevel()
+    {
+        int newLevel = CalculateLevel();
+        if(newLevel>currentLevel)
+        {
+            currentLevel = newLevel;
         }
     }
 
@@ -23,7 +37,17 @@ public class BaseStats : MonoBehaviour
 
     public int GetLevel()
     {
-        Experience experience = GetComponent<Experience>();
+        if(currentLevel<1)
+        {
+            currentLevel = CalculateLevel();//to prevent zero in currentLevel in the very beginnig of the script
+            //we initialize the currentLevel
+        }
+        return currentLevel;
+    }
+
+    public int CalculateLevel()
+    {
+        //Experience experience = GetComponent<Experience>();
         if (experience == null)
             return startingLevel;//for our enemies because they don't have an experience
 
