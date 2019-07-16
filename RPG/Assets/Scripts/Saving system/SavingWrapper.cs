@@ -10,10 +10,15 @@ public class SavingWrapper : MonoBehaviour
 
     SavingSystem savingSystem;
 
-    private IEnumerator Start()
+    private void Awake()
+    {
+        savingSystem = GetComponent<SavingSystem>();
+        StartCoroutine(LoadLastScene());
+    }
+
+    private IEnumerator LoadLastScene()
     {
         Fader fader = FindObjectOfType<Fader>();
-        savingSystem = GetComponent<SavingSystem>();
         fader.FadeOutImmediate();//black screen at the brginning
         yield return savingSystem.LoadLastScene(fileName);
         yield return fader.FadeIn(fadeInTime);

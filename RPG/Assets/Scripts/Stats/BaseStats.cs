@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BaseStats : MonoBehaviour
 {
     [SerializeField] int startingLevel = 1;
     [SerializeField] CharacterClass characterClass;
     [SerializeField] Progression progression = null;
+    [SerializeField] GameObject levelUpParticles;
 
     private int currentLevel = 0;
     Experience experience;
+
+    public event Action onLevelUp;
 
     private void Start()
     {
@@ -27,6 +31,9 @@ public class BaseStats : MonoBehaviour
         if(newLevel>currentLevel)
         {
             currentLevel = newLevel;
+            onLevelUp();
+            GameObject levelUpEffect=Instantiate(levelUpParticles, transform);//relate the effect to the spawner;
+            Destroy(levelUpEffect, 2f);
         }
     }
 

@@ -5,27 +5,32 @@ using UnityEngine;
 public class Health : MonoBehaviour, ISaveable
 {
     [SerializeField] float health = -1f;
+    [SerializeField] float regeneration = 70f;
 
     public bool IsAlive { get; private set; } = true;
 
-    private bool isInstalled = false;//?????
+    //private bool isInstalled = false;//?????
     BaseStats baseStats;
-    private float startHealth;
+    //private float startHealth;
 
     private void Awake()
     {
         baseStats = GetComponent<BaseStats>();
         //if(health<0)
-        startHealth= baseStats.GetStat(Stats.Health);
+        //startHealth= baseStats.GetStat(Stats.Health);
+        health = baseStats.GetStat(Stats.Health);
+        baseStats.onLevelUp += RegenerateHealth;
     }
+
+
 
     private void Update()
     {
-        if (!isInstalled)//????
-        {
-            health = GetComponent<BaseStats>().GetStat(Stats.Health);///?????
-            isInstalled = true;///????
-        }
+        //if (!isInstalled)//????
+        //{
+        //    health = GetComponent<BaseStats>().GetStat(Stats.Health);///?????
+        //    isInstalled = true;///????
+        //}
     }
 
     public void TakeDamage(GameObject initiator, int damage)
@@ -36,6 +41,11 @@ public class Health : MonoBehaviour, ISaveable
             Death();
             AwardXP(initiator);
         }
+    }
+
+    public float GetHealth()
+    {
+        return 100 * (health / baseStats.GetStat(Stats.Health));
     }
 
     private void AwardXP(GameObject initiator)
@@ -58,6 +68,16 @@ public class Health : MonoBehaviour, ISaveable
         }
     }
 
+    private void RegenerateHealth()
+    {
+        float regenHealth = baseStats.GetStat(Stats.Health) * (regeneration / 100);
+        Debug.Log(regenHealth);
+        health = Mathf.Max(health, regenHealth);
+        Debug.Log(health);
+        Debug.Log(GetHealth());
+        Debug.Log(baseStats.GetStat(Stats.Health));
+    }
+
     public object CaptureState()
     {
         return health;
@@ -73,8 +93,5 @@ public class Health : MonoBehaviour, ISaveable
         }
     }
 
-    public float GetHealth()
-    {
-        return 100 * (health / startHealth);
-    }
+  
 }
