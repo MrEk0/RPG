@@ -13,12 +13,20 @@ public class Progression : ScriptableObject
     {
         BuildLookup();
 
-       float[] levels=lookupDictionary[character][stat];
-        if(levels.Length<level)
+        float[] levels = lookupDictionary[character][stat];
+        if (levels.Length < level)
         {
             return 0;
         }
         return levels[level - 1];
+    }
+
+    public int GetLevel(Stats stat, CharacterClass character)
+    {
+        BuildLookup();
+
+        float[] levels = lookupDictionary[character][stat];
+        return levels.Length;
     }
 
     private void BuildLookup()
