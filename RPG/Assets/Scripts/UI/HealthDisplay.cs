@@ -17,7 +17,8 @@ public class HealthDisplay : MonoBehaviour
 
     private void Update()
     {
-        healthPoints.text = String.Format("Health  {0:0}%", health.GetHealth());//to ger rid of decimal;
+        //healthPoints.text = String.Format("Health  {0:0}%", health.GetPercentageHealth());//to ger rid of decimal;
+        healthPoints.text = String.Format("Health  {0:0}/{1:0}", health.GetHealth(), health.GetMaxHealth());//to ger rid of decimal;
 
     }
 }

@@ -6,5 +6,6 @@ public enum Stats
 {
     Health,
     AwardXP,
-    ExperienceToLevelUp
+    ExperienceToLevelUp,
+    Damage
 }

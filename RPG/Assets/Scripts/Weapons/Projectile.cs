@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     Transform prTransform;
     Health target=null;
     GameObject initiator = null;
-    int damage;
+    float damage;
 
     private void Start()
     {
@@ -72,7 +72,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void targetInstall(GameObject initiator, Health target, int damage)
+    public void targetInstall(GameObject initiator, Health target, float damage)
     {
         this.target = target;
         this.damage = damage;

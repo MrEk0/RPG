@@ -19,8 +19,10 @@ public class EnemyHealthDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(fighter.GetTarget()!=null)
-        healthText.text = String.Format("Health  {0:0}%", fighter.GetTarget().GetHealth());
+        if (fighter.GetTarget() != null)
+            //healthText.text = String.Format("Health  {0:0}%", fighter.GetTarget().GetPercentageHealth());
+            healthText.text = String.Format("Health  {0:0}/{1:0}",
+                fighter.GetTarget().GetHealth(), fighter.GetTarget().GetMaxHealth());
         else
         {
             healthText.text = "No target";

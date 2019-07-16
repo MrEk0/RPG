@@ -33,7 +33,7 @@ public class Health : MonoBehaviour, ISaveable
         //}
     }
 
-    public void TakeDamage(GameObject initiator, int damage)
+    public void TakeDamage(GameObject initiator, float damage)
     {
         health -= damage;
         if (health <= 0)
@@ -43,9 +43,19 @@ public class Health : MonoBehaviour, ISaveable
         }
     }
 
-    public float GetHealth()
+    public float GetPercentageHealth()
     {
         return 100 * (health / baseStats.GetStat(Stats.Health));
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return baseStats.GetStat(Stats.Health);
     }
 
     private void AwardXP(GameObject initiator)
@@ -57,6 +67,16 @@ public class Health : MonoBehaviour, ISaveable
         experience.GainExperience(baseStats.GetStat(Stats.AwardXP));
     }
 
+    private void RegenerateHealth()
+    {
+        float regenHealth = baseStats.GetStat(Stats.Health) * (regeneration / 100);
+        //Debug.Log(regenHealth);
+        health = Mathf.Max(health, regenHealth);
+        //Debug.Log(health);
+        //Debug.Log(GetHealth());
+        //Debug.Log(baseStats.GetStat(Stats.Health));
+    }
+
     private void Death()
     {
         if (IsAlive)
@@ -66,16 +86,6 @@ public class Health : MonoBehaviour, ISaveable
             //GetComponent<CapsuleCollider>().enabled = false;//to make arrow fly through body
             IsAlive = false;
         }
-    }
-
-    private void RegenerateHealth()
-    {
-        float regenHealth = baseStats.GetStat(Stats.Health) * (regeneration / 100);
-        Debug.Log(regenHealth);
-        health = Mathf.Max(health, regenHealth);
-        Debug.Log(health);
-        Debug.Log(GetHealth());
-        Debug.Log(baseStats.GetStat(Stats.Health));
     }
 
     public object CaptureState()

@@ -65,12 +65,12 @@ public class Weapon:ScriptableObject
         return handPosition;
     }
 
-    public void LaunchTheProjectile(GameObject initiator, Transform rightHand, Transform leftHand, Health target)
+    public void LaunchTheProjectile(GameObject initiator, Transform rightHand, Transform leftHand, Health target, float levelDamage)
     {
         if (projectilePrefab == null) return;
 
         GameObject projectile = Instantiate(projectilePrefab, GetHandPosition(rightHand, leftHand).position, Quaternion.identity);
-        projectile.GetComponent<Projectile>().targetInstall(initiator, target, damage);
+        projectile.GetComponent<Projectile>().targetInstall(initiator, target, levelDamage);
         projectile.GetComponent<Projectile>().goalForProjectile();
     }
 

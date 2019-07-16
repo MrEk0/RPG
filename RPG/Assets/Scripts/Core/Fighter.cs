@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour, IAction, ISaveable
 {
-    //[SerializeField] float attackRange = 2f;
     [SerializeField] float timeBetweenAttacks = 2;
-    //[SerializeField] int damage = 10;
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
-    //[SerializeField] string defaultWeaponName = "Unarmed";
   
-
     Mover mover;
     Health target;
     ActionSchedule actionSchedule;
@@ -85,7 +81,8 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         if (target == null)
             return;
 
-        target.TakeDamage(gameObject, currentWeapon.GetDamage());
+        float damage = GetComponent<BaseStats>().GetStat(Stats.Damage);//to finish!!
+        target.TakeDamage(gameObject, damage);
     }
 
     private void Shoot()
@@ -93,9 +90,10 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         if (target == null)
             return;
 
+        float damage = GetComponent<BaseStats>().GetStat(Stats.Damage);// to finish!!!
         if(currentWeapon.isHasProjectile())
         {
-            currentWeapon.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target);
+            currentWeapon.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target, damage);
         }
         else
         {
