@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fighter : MonoBehaviour, IAction, ISaveable
+public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 {
     [SerializeField] float timeBetweenAttacks = 2;
     [SerializeField] Transform rightHandPosition = null;
@@ -14,6 +14,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
     ActionSchedule actionSchedule;
     Animator animator;
     Weapon currentWeapon=null;
+    BaseStats baseStats=null;
     float timeSinceLastAttack = Mathf.Infinity;
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         mover = GetComponent<Mover>();
         actionSchedule = GetComponent<ActionSchedule>();
         animator = GetComponent<Animator>();
+        baseStats = GetComponent<BaseStats>();
 
         if(currentWeapon==null)
         EquipWeapon(defaultWeapon);
@@ -81,7 +83,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         if (target == null)
             return;
 
-        float damage = GetComponent<BaseStats>().GetStat(Stats.Damage);//to finish!!
+        float damage = baseStats.GetStat(Stats.Damage);
         target.TakeDamage(gameObject, damage);
     }
 
@@ -90,7 +92,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
         if (target == null)
             return;
 
-        float damage = GetComponent<BaseStats>().GetStat(Stats.Damage);// to finish!!!
+        float damage = baseStats.GetStat(Stats.Damage);
         if(currentWeapon.isHasProjectile())
         {
             currentWeapon.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target, damage);
@@ -128,6 +130,15 @@ public class Fighter : MonoBehaviour, IAction, ISaveable
             return enemy.GetComponent<Health>().IsAlive;
         }
         return false;
+    }
+
+    public float GetAdditiveModifier(Stats stat)
+    {
+        if (stat == Stats.Damage)
+        {
+            return currentWeapon.GetDamage();
+        }
+        return 0f;
     }
 
     public object CaptureState()

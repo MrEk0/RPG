@@ -39,7 +39,23 @@ public class BaseStats : MonoBehaviour
 
     public float GetStat(Stats stat)
     {
-        return progression.GetStat(stat, characterClass, GetLevel());
+        return progression.GetStat(stat, characterClass, GetLevel())+GetAdditiveModifier(stat);
+    }
+
+    private float GetAdditiveModifier(Stats stat)
+    {
+        //float total=0;
+        //foreach (IModifier modifier in GetComponents<IModifier>())
+        //{
+        //    foreach(float additive in modifier.GetAdditiveModifier(stat))
+        //    {
+        //        total += additive;
+        //    }
+        //}
+        //return total;
+
+        IModifier modifier = GetComponent<IModifier>();
+        return modifier.GetAdditiveModifier(stat);
     }
 
     public int GetLevel()
@@ -52,7 +68,7 @@ public class BaseStats : MonoBehaviour
         return currentLevel;
     }
 
-    public int CalculateLevel()
+    private int CalculateLevel()
     {
         //Experience experience = GetComponent<Experience>();
         if (experience == null)
