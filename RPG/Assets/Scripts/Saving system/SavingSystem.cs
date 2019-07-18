@@ -13,17 +13,19 @@ public class SavingSystem : MonoBehaviour
     {
         Dictionary<string, object> state = LoadFile(fileName);
 
-        if(state.ContainsKey("lastSceneBuildIndex"))
+        int lastSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        if (state.ContainsKey("lastSceneBuildIndex"))
         {
-            int lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
-            if(lastSceneBuildIndex!=SceneManager.GetActiveScene().buildIndex)
-            {
-                yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to determine if the operation has completed
-                //Loads the Scene asynchronously in the background
-                //finishes after Awake but before Start which can cause the problem
-            }
+            //int lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
+            //if(lastSceneBuildIndex!=SceneManager.GetActiveScene().buildIndex)
+            //{
+            //yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to determine if the operation has completed
+            ////Loads the Scene asynchronously in the background
+            ////finishes after Awake but before Start which can cause the problem
+            //}
+            lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
         }
-       
+        yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to get away from race conditions
         RestoreState(state);
     }
 

@@ -13,7 +13,7 @@ public class Mover : MonoBehaviour, IAction, ISaveable
     ActionSchedule actionSchedule;
     Health health;
 
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -63,6 +63,6 @@ public class Mover : MonoBehaviour, IAction, ISaveable
     {
         Serializable position = (Serializable)state;
         transform.position = position.ToVector();
-        GetComponent<ActionSchedule>().CancelAllControls();
+        actionSchedule.CancelAllControls();
     }
 }
