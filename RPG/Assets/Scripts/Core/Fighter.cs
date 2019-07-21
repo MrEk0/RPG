@@ -17,14 +17,17 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     BaseStats baseStats=null;
     float timeSinceLastAttack = Mathf.Infinity;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         mover = GetComponent<Mover>();
         actionSchedule = GetComponent<ActionSchedule>();
         animator = GetComponent<Animator>();
         baseStats = GetComponent<BaseStats>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         if(currentWeapon==null)
         EquipWeapon(defaultWeapon);
     }

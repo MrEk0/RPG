@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     Mover mover;
     Health health;
 
-    void Start()
+    private void Awake()
     {
         health = GetComponent<Health>();
         fighter = GetComponent<Fighter>();

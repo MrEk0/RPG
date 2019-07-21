@@ -24,14 +24,18 @@ public class AIController : MonoBehaviour
     float timeSinceStop = Mathf.Infinity;
 
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
-        startPosition = transform.position;
         mover = GetComponent<Mover>();
         actionSchedule = GetComponent<ActionSchedule>();
+    }
+
+    private void Start()
+    {
+        startPosition = transform.position;
     }
 
     // Update is called once per frame

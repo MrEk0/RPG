@@ -19,10 +19,17 @@ public class Health : MonoBehaviour, ISaveable
         //if(health<0)
         //startHealth= baseStats.GetStat(Stats.Health);
         health = baseStats.GetStat(Stats.Health);
+    }
+
+    private void OnEnable()
+    {
         baseStats.onLevelUp += RegenerateHealth;
     }
 
-
+    private void OnDisable()
+    {
+        baseStats.onLevelUp -= RegenerateHealth;
+    }
 
     private void Update()
     {

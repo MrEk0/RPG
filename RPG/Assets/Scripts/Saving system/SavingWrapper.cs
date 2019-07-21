@@ -18,9 +18,9 @@ public class SavingWrapper : MonoBehaviour
 
     private IEnumerator LoadLastScene()
     {
+        yield return savingSystem.LoadLastScene(fileName);
         Fader fader = FindObjectOfType<Fader>();
         fader.FadeOutImmediate();//black screen at the brginning
-        yield return savingSystem.LoadLastScene(fileName);
         yield return fader.FadeIn(fadeInTime);
     }
 

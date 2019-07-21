@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using GameDevTV.Utils;
 
 public class BaseStats : MonoBehaviour
 {
@@ -15,13 +16,29 @@ public class BaseStats : MonoBehaviour
 
     public event Action onLevelUp;
 
+    private void Awake()
+    {
+        experience = GetComponent<Experience>();
+    }
+
     private void Start()
     {
         currentLevel = CalculateLevel();
-        experience = GetComponent<Experience>();
-        if(experience!=null)
+    }
+
+    private void OnEnable()
+    {
+        if (experience != null)
         {
             experience.onExperienceGained += UpdateLevel;//subscribe delegate
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (experience != null)
+        {
+            experience.onExperienceGained -= UpdateLevel;//unsubscribe delegate
         }
     }
 

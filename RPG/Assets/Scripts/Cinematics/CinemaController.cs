@@ -9,9 +9,19 @@ public class CinemaController : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void OnEnable()
+    {
         GetComponent<PlayableDirector>().played += DisableControl;
         GetComponent<PlayableDirector>().stopped += EnableControl;
-        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<PlayableDirector>().played -= DisableControl;
+        GetComponent<PlayableDirector>().stopped -= EnableControl;
     }
 
     void DisableControl(PlayableDirector pd)
