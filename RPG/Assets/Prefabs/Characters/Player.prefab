@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6417976521595153766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7124083940853283561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0329ba83e5eddbc49a75be7eb11b3d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2857072479353126320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,6 +13,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsXP: 0
+--- !u!114 &6417976521595153766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124083940853283561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0329ba83e5eddbc49a75be7eb11b3d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1344039699264097903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171,6 +171,11 @@ PrefabInstance:
       propertyPath: uniqueUdentifier
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 5834288548631936492, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 5818119858435666638, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: m_IsKinematic
@@ -184,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 3833198808946072978, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: startingLevel
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3833198808946072978, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
@@ -192,6 +197,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 89461b205a2b0fc44bbd725b33defcab,
         type: 2}
+    - target: {fileID: 3833198808946072978, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: levelUpParticles
+      value: 
+      objectReference: {fileID: 6566812310785888864, guid: a69363c1e929dce47929f2fa30288f70,
+        type: 3}
     - target: {fileID: 3673362169719073189, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: timeBetweenAttacks
@@ -211,7 +222,7 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 3340292834f0fc4448d59969d65f431e,
+      objectReference: {fileID: 11400000, guid: 9206be4a6396f0743bd0890d17eec92a,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7949d1e005427214b8790d46a6aa9cb2, type: 3}

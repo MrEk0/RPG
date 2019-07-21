@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 {
-    [SerializeField] float timeBetweenAttacks = 2;
+    [SerializeField] float timeBetweenAttacks = 2f;
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
@@ -55,7 +55,8 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     public void EquipWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
-        currentWeapon.Spawner(rightHandPosition, leftHandPosition, animator);
+        //currentWeapon.Spawner(rightHandPosition, leftHandPosition, animator);
+        weapon.Spawner(rightHandPosition, leftHandPosition, animator);
     }
 
     private void AttackBehaviour()
@@ -146,6 +147,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 
     public object CaptureState()
     {
+        Debug.Log($"{currentWeapon.name}+{gameObject.name}");
         return currentWeapon.name;
     }
 

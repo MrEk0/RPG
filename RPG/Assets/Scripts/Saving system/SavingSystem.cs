@@ -16,13 +16,6 @@ public class SavingSystem : MonoBehaviour
         int lastSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
         if (state.ContainsKey("lastSceneBuildIndex"))
         {
-            //int lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
-            //if(lastSceneBuildIndex!=SceneManager.GetActiveScene().buildIndex)
-            //{
-            //yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to determine if the operation has completed
-            ////Loads the Scene asynchronously in the background
-            ////finishes after Awake but before Start which can cause the problem
-            //}
             lastSceneBuildIndex = (int)state["lastSceneBuildIndex"];
         }
         yield return SceneManager.LoadSceneAsync(lastSceneBuildIndex);//to get away from race conditions
@@ -31,19 +24,6 @@ public class SavingSystem : MonoBehaviour
 
     public void Save(string fileName)
     {
-        //string path = GetPathFromFile(fileName);
-        //    Debug.Log("Save to " + path);
-        //using (FileStream stream = File.Open(path, FileMode.Create))
-        //{
-        //    //Transform playerTransform = FindObjectOfType<Player>().transform;//fsfsdfsd
-
-        //    BinaryFormatter formatter = new BinaryFormatter();
-        //    //Serializable serializeVector = new Serializable(playerTransform.position);
-        //    formatter.Serialize(stream, CaptureState());
-        //    //byte[] buffer = SerializeVector(playerTransform.position);
-        //    //stream.Write(buffer, 0, buffer.Length);
-
-        //}
         Dictionary<string, object> state = LoadFile(fileName);
         CaptureState(state); //update the state
         SaveFile(fileName, state);//overwritte the state
@@ -59,44 +39,8 @@ public class SavingSystem : MonoBehaviour
         }
     }
 
-    //private byte[] SerializeVector(Vector3 vector)
-    //{
-    //    byte[] bytes = new byte[3 * 4];
-    //    BitConverter.GetBytes(vector.x).CopyTo(bytes, 0);
-    //    BitConverter.GetBytes(vector.y).CopyTo(bytes, 4);
-    //    BitConverter.GetBytes(vector.z).CopyTo(bytes, 8);
-    //    return bytes;
-    //}
-
-    //private Vector3 DeserializeVector(byte[] buffer)
-    //{
-    //    Vector3 result = new Vector3();
-    //    result.x = BitConverter.ToSingle(buffer, 0);
-    //    result.y = BitConverter.ToSingle(buffer, 4);
-    //    result.z = BitConverter.ToSingle(buffer, 8);
-    //    return result;
-    //}
-
     public void Load(string fileName)
     {
-        //string path = GetPathFromFile(fileName);
-        //if (File.Exists(path))
-        //{
-        //    Debug.Log("Load from " + path);
-        //    using (FileStream stream = File.Open(path, FileMode.Open))
-        //    {
-        //        //byte[] buffer = new byte[stream.Length];
-        //        //stream.Read(buffer, 0, buffer.Length);
-
-        //        //Vector3 newPlayerPosition = DeserializeVector(buffer);
-        //        Transform playerTransform = FindObjectOfType<Player>().transform;//fsfsdfsd
-
-        //        BinaryFormatter formatter = new BinaryFormatter();
-        //        //Serializable position=(Serializable)formatter.Deserialize(stream);
-        //        //playerTransform.position = position.ToVector();
-        //        RestoreState(formatter.Deserialize(stream));
-        //    }
-        //}
         RestoreState(LoadFile(fileName));
     }
 
@@ -112,7 +56,7 @@ public class SavingSystem : MonoBehaviour
         {
             using (FileStream stream = File.Open(path, FileMode.Open))
             {
-                Transform playerTransform = FindObjectOfType<Player>().transform;//fsfsdfsd
+                //Transform playerTransform = FindObjectOfType<Player>().transform;//fsfsdfsd
 
                 BinaryFormatter formatter = new BinaryFormatter();
                 return (Dictionary<string, object>)formatter.Deserialize(stream);

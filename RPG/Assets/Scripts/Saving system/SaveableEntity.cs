@@ -52,7 +52,7 @@ public class SaveableEntity : MonoBehaviour
         SerializedObject serializedObject = new SerializedObject(this);
         SerializedProperty property= serializedObject.FindProperty("uniqueIdentifier");
 
-        if(string.IsNullOrEmpty(property.stringValue) /*&&*/|| !IsUnique(property.stringValue))
+        if(string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
         {
             property.stringValue = Guid.NewGuid().ToString();
             serializedObject.ApplyModifiedProperties();
