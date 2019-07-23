@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class WeaponPickup : MonoBehaviour, IRaycastable
 {
     [SerializeField] Weapon weapon;
     [SerializeField] float hideTime = 3f;
@@ -12,10 +12,14 @@ public class WeaponPickup : MonoBehaviour
     {
         if(collider.gameObject.CompareTag("Player"))
         {
-            collider.GetComponent<Fighter>().EquipWeapon(weapon);
-            //Destroy(gameObject);
-            StartCoroutine(HideAndShow(hideTime));
+            Pickup(collider.GetComponent<Fighter>());
         }
+    }
+
+    private void Pickup(Fighter fighter)
+    {
+        fighter.EquipWeapon(weapon);
+        StartCoroutine(HideAndShow(hideTime));
     }
 
     IEnumerator HideAndShow(float hideTime)
@@ -41,5 +45,14 @@ public class WeaponPickup : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
+    }
+
+    public bool HandleRaycast(Player player)
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Pickup(player.GetComponent<Fighter>());//to pick up immediately before getting closer;
+        }
+        return true;
     }
 }

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class Enemy : MonoBehaviour
-{
-    public void Attack()
+public class Enemy : MonoBehaviour, IRaycastable
+{ 
+    public bool HandleRaycast(Player player)
     {
-        Debug.Log("Attack");
+        if (player.GetComponent<Fighter>().CanAttack(gameObject))
+        {
+            if (Input.GetMouseButton(0))
+            {
+                player.GetComponent<Fighter>().AttackTheTarget(gameObject);
+            }
+            return true;
+        }
+        return false;
     }
 }
 

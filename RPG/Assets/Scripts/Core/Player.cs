@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,7 +17,8 @@ public class Player : MonoBehaviour
         None,
         Attack,
         Move,
-        UI
+        UI,
+        Weapon
     }
 
     private void Awake()
@@ -39,8 +41,8 @@ public class Player : MonoBehaviour
             SetCursor(Cursors.None);
             return;
         }
-            
-        if (AttackEnemy())
+
+        if (InteractWithRaycast())
             return;
         if (SetCursorToMove())
             return;
@@ -49,34 +51,23 @@ public class Player : MonoBehaviour
 
     private bool InteractWithUI()
     {
-        //if (EventSystem.current.IsPointerOverGameObject())
         return EventSystem.current.IsPointerOverGameObject();//is it over a gameobject that is a piece of UI
-        //{
-        //    SetCursor(Cursors.UI);
-        //    return true;
-        //}
-        //return false;
     }
 
-    private bool AttackEnemy()
+    private bool InteractWithRaycast()
     {
-        RaycastHit[] hits = Physics.RaycastAll(GetRay());
-        foreach (RaycastHit hit in hits)
+        RaycastHit[] raycastHits = Physics.RaycastAll(GetRay());
+        foreach(RaycastHit hit in raycastHits)
         {
-            Enemy enemy = hit.transform.GetComponent<Enemy>();
-            if (enemy == null) continue;
-
-            if (fighter.CanAttack(enemy.gameObject))
+            IRaycastable[] raycasts=hit.transform.GetComponents<IRaycastable>();
+            foreach (IRaycastable raycast in raycasts)
             {
-                if (Input.GetMouseButton(0))
+                if(raycast.HandleRaycast(this))
                 {
-                    enemy.Attack();
-                    fighter.AttackTheTarget(enemy.gameObject);
+                    SetCursor(Cursors.Weapon);
+                    return true;
                 }
-                SetCursor(Cursors.Attack);
-                return true;
             }
-
         }
         return false;
     }
