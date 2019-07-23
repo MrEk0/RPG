@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] CursorMapping[] cursorMapping = null;
+
     Fighter fighter;
     Mover mover;
     Health health;
+
+    enum Cursors
+    {
+        None,
+        Attack,
+        Move
+    }
 
     private void Awake()
     {
@@ -17,12 +26,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!health.IsAlive) return;
-
+        if (!health.IsAlive)
+        {
+            SetCursor(Cursors.None);
+            return;
+        }
+            
         if (AttackEnemy())
             return;
         if (SetCursorToMove())
             return;
+        SetCursor(Cursors.None);
     }
 
     private bool AttackEnemy()
@@ -40,6 +54,7 @@ public class Player : MonoBehaviour
                     enemy.Attack();
                     fighter.AttackTheTarget(enemy.gameObject);
                 }
+                SetCursor(Cursors.Attack);
                 return true;
             }
 
@@ -56,9 +71,28 @@ public class Player : MonoBehaviour
             {
                 mover.StartMovement(hit.point, 1f);
             }
+            SetCursor(Cursors.Move);
             return true;
         }
         return false;
+    }
+
+    private void SetCursor(Cursors cursor)
+    {
+        CursorMapping cursorMapping = GetCursorMapping(cursor);
+        Cursor.SetCursor(cursorMapping.texture, Vector2.zero, CursorMode.Auto);
+    }
+
+    private CursorMapping GetCursorMapping(Cursors cursor)
+    {
+        foreach (CursorMapping cursorMap in cursorMapping)
+        {
+            if (cursorMap.type == cursor)
+            {
+                return cursorMap;
+            }
+        }
+        return cursorMapping[0];
     }
 
     private Ray GetRay()
@@ -66,4 +100,11 @@ public class Player : MonoBehaviour
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 
- }
+    [System.Serializable]
+    class CursorMapping
+    {
+        public Cursors type;
+        public Texture2D texture;
+        //public Vector2 hotSpot;
+    }
+}
