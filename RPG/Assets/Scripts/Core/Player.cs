@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class Player : MonoBehaviour
     {
         None,
         Attack,
-        Move
+        Move,
+        UI
     }
 
     private void Awake()
@@ -26,6 +28,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if(InteractWithUI())
+        {
+            SetCursor(Cursors.UI);
+            return;
+        }
+
         if (!health.IsAlive)
         {
             SetCursor(Cursors.None);
@@ -37,6 +45,17 @@ public class Player : MonoBehaviour
         if (SetCursorToMove())
             return;
         SetCursor(Cursors.None);
+    }
+
+    private bool InteractWithUI()
+    {
+        //if (EventSystem.current.IsPointerOverGameObject())
+        return EventSystem.current.IsPointerOverGameObject();//is it over a gameobject that is a piece of UI
+        //{
+        //    SetCursor(Cursors.UI);
+        //    return true;
+        //}
+        //return false;
     }
 
     private bool AttackEnemy()
