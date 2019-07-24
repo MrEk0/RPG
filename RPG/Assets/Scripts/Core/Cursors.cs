@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 //namespace Assets.Scripts.Core
 //{
-interface IRaycastable
-{
-    Cursors GetCursors();
-    bool HandleRaycast(Player player);
-}
+    public enum Cursors
+    {
+        None,
+        Attack,
+        Move,
+        UI,
+        Weapon
+    }
 //}

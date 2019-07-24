@@ -55,4 +55,9 @@ public class WeaponPickup : MonoBehaviour, IRaycastable
         }
         return true;
     }
+
+    public Cursors GetCursors()
+    {
+        return Cursors.Weapon;
+    }
 }

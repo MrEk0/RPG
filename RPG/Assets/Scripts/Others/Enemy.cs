@@ -4,7 +4,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour, IRaycastable
-{ 
+{
+    public Cursors GetCursors()
+    {
+        return Cursors.Attack;
+    }
+
     public bool HandleRaycast(Player player)
     {
         if (player.GetComponent<Fighter>().CanAttack(gameObject))

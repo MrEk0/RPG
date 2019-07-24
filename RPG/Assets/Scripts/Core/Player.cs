@@ -12,15 +12,6 @@ public class Player : MonoBehaviour
     Mover mover;
     Health health;
 
-    enum Cursors
-    {
-        None,
-        Attack,
-        Move,
-        UI,
-        Weapon
-    }
-
     private void Awake()
     {
         health = GetComponent<Health>();
@@ -64,7 +55,7 @@ public class Player : MonoBehaviour
             {
                 if(raycast.HandleRaycast(this))
                 {
-                    SetCursor(Cursors.Weapon);
+                    SetCursor(raycast.GetCursors());
                     return true;
                 }
             }

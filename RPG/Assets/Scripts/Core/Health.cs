@@ -9,15 +9,11 @@ public class Health : MonoBehaviour, ISaveable
 
     public bool IsAlive { get; private set; } = true;
 
-    //private bool isInstalled = false;//?????
     BaseStats baseStats;
-    //private float startHealth;
 
     private void Awake()
     {
         baseStats = GetComponent<BaseStats>();
-        //if(health<0)
-        //startHealth= baseStats.GetStat(Stats.Health);
         health = baseStats.GetStat(Stats.Health);
     }
 
@@ -29,15 +25,6 @@ public class Health : MonoBehaviour, ISaveable
     private void OnDisable()
     {
         baseStats.onLevelUp -= RegenerateHealth;
-    }
-
-    private void Update()
-    {
-        //if (!isInstalled)//????
-        //{
-        //    health = GetComponent<BaseStats>().GetStat(Stats.Health);///?????
-        //    isInstalled = true;///????
-        //}
     }
 
     public void TakeDamage(GameObject initiator, float damage)
@@ -77,11 +64,7 @@ public class Health : MonoBehaviour, ISaveable
     private void RegenerateHealth()
     {
         float regenHealth = baseStats.GetStat(Stats.Health) * (regeneration / 100);
-        //Debug.Log(regenHealth);
         health = Mathf.Max(health, regenHealth);
-        //Debug.Log(health);
-        //Debug.Log(GetHealth());
-        //Debug.Log(baseStats.GetStat(Stats.Health));
     }
 
     private void Death()
@@ -109,6 +92,4 @@ public class Health : MonoBehaviour, ISaveable
             Death();
         }
     }
-
-  
 }

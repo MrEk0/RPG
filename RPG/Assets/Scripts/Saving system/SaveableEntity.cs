@@ -36,9 +36,6 @@ public class SaveableEntity : MonoBehaviour
                 saveable.RestoreState(stateDict[stringType]);
             }
         }
-        //Serializable position = (Serializable)state;
-        //transform.position = position.ToVector();
-        //GetComponent<ActionSchedule>().CancelAllControls();
     }
 
 #if UNITY_EDITOR
