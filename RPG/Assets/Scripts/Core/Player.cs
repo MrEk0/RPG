@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(InteractWithUI())
+        if (InteractWithUI())
         {
             SetCursor(Cursors.UI);
             return;
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     private bool InteractWithRaycast()
     {
-        RaycastHit[] raycastHits = Physics.RaycastAll(GetRay());
+        RaycastHit[] raycastHits = SortAllRaycast();
         foreach(RaycastHit hit in raycastHits)
         {
             IRaycastable[] raycasts=hit.transform.GetComponents<IRaycastable>();
@@ -61,6 +61,18 @@ public class Player : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private RaycastHit[] SortAllRaycast()
+    {
+        RaycastHit[] hits = Physics.RaycastAll(GetRay());
+        float[] distances = new float[hits.Length];
+        for (int i= 0; i<distances.Length; i++)
+        {
+            distances[i] = hits[i].distance;
+        }
+        Array.Sort(distances, hits);
+        return hits;
     }
 
     private bool SetCursorToMove()

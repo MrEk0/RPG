@@ -5184,38 +5184,5 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1489046654845577977, guid: 394d1bc8ed478b44885335648d3aac1b,
-        type: 3}
-      propertyPath: m_PixelPerfect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862810483917954349, guid: 394d1bc8ed478b44885335648d3aac1b,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2137333962, guid: 394d1bc8ed478b44885335648d3aac1b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12.900024
-      objectReference: {fileID: 0}
-    - target: {fileID: 2137333962, guid: 394d1bc8ed478b44885335648d3aac1b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -8.399994
-      objectReference: {fileID: 0}
-    - target: {fileID: 3885657674362769194, guid: 394d1bc8ed478b44885335648d3aac1b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12.900024
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898324603731278730, guid: 394d1bc8ed478b44885335648d3aac1b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12.900024
-      objectReference: {fileID: 0}
-    - target: {fileID: 7449408792610828601, guid: 394d1bc8ed478b44885335648d3aac1b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 12.900024
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394d1bc8ed478b44885335648d3aac1b, type: 3}
