@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] CursorMapping[] cursorMapping = null;
+    [SerializeField] float maxNavMeshDistance = 1f;
 
     Fighter fighter;
     Mover mover;
@@ -77,17 +79,36 @@ public class Player : MonoBehaviour
 
     private bool SetCursorToMove()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(GetRay(), out hit))
+        //RaycastHit hit;
+        Vector3 target;
+        bool hasHit = RaycastNavMesh(out target);
+        if (hasHit)
         {
             if (Input.GetMouseButton(0))
             {
-                mover.StartMovement(hit.point, 1f);
+                mover.StartMovement(target, 1f);
             }
             SetCursor(Cursors.Move);
             return true;
         }
         return false;
+    }
+
+    private bool RaycastNavMesh(out Vector3 target)//to avoid movement aside notwalkable surface;
+    {
+        target = new Vector3();
+
+        NavMeshHit meshHit;
+        RaycastHit hit;
+
+        bool hasHit = Physics.Raycast(GetRay(), out hit);
+        bool hasCastToNavMesh=NavMesh.SamplePosition(
+            hit.point, out meshHit, maxNavMeshDistance, NavMesh.AllAreas);//look for the nearest navmesh position
+        if (!hasCastToNavMesh)
+            return false;
+
+        target = meshHit.position;
+        return true;
     }
 
     private void SetCursor(Cursors cursor)
