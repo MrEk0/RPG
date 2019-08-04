@@ -978,6 +978,11 @@ PrefabInstance:
       propertyPath: path
       value: 
       objectReference: {fileID: 1878931573}
+    - target: {fileID: 3463328035572982273, guid: bc5a2937dd59a6f4388963ad8ec12947,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc5a2937dd59a6f4388963ad8ec12947, type: 3}
 --- !u!4 &201221502 stripped
@@ -2793,6 +2798,11 @@ PrefabInstance:
       propertyPath: chaseRange
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4627739455842706321, guid: bd1583cb27cbebf4a91ec6524c88986e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd1583cb27cbebf4a91ec6524c88986e, type: 3}
 --- !u!1 &1033306829
@@ -3138,6 +3148,11 @@ PrefabInstance:
       propertyPath: path
       value: 
       objectReference: {fileID: 1065321074}
+    - target: {fileID: 3463328035572982273, guid: bc5a2937dd59a6f4388963ad8ec12947,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -4197,7 +4212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1674636009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 011ecd9496f665c47b69578d5be386d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9771b50f349ea1d4da16d8c306ff30e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1674636011
@@ -4704,6 +4719,11 @@ PrefabInstance:
       propertyPath: path
       value: 
       objectReference: {fileID: 1589396620}
+    - target: {fileID: 3463328035572982273, guid: bc5a2937dd59a6f4388963ad8ec12947,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc5a2937dd59a6f4388963ad8ec12947, type: 3}
 --- !u!4 &2042834317 stripped
@@ -5188,6 +5208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxPathDistance
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621575442511263280, guid: 394d1bc8ed478b44885335648d3aac1b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394d1bc8ed478b44885335648d3aac1b, type: 3}

@@ -7,6 +7,8 @@ public class Health : MonoBehaviour, ISaveable
     [SerializeField] float health = -1f;
     [SerializeField] float regeneration = 70f;
 
+    [SerializeField] GameObject damageCanvas;
+
     public bool IsAlive { get; private set; } = true;
 
     BaseStats baseStats;
@@ -30,11 +32,20 @@ public class Health : MonoBehaviour, ISaveable
     public void TakeDamage(GameObject initiator, float damage)
     {
         health -= damage;
+        ShowUIDamage(damage);////
         if (health <= 0)
         {
             Death();
             AwardXP(initiator);
         }
+    }
+
+    private void ShowUIDamage(float damage)////
+    {
+        GameObject damageUI=Instantiate(damageCanvas, transform.position+new Vector3(0,2,0), transform.rotation);
+        damageUI.GetComponent<CameraFacing>().Text(damage);
+        Destroy(damageUI, 2f);
+        Debug.Log(damage);
     }
 
     public float GetPercentageHealth()

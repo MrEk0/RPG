@@ -163,6 +163,5 @@ public class Player : MonoBehaviour
     {
         public Cursors type;
         public Texture2D texture;
-        //public Vector2 hotSpot;
     }
 }
