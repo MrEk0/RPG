@@ -9,6 +9,8 @@ public class Health : MonoBehaviour, ISaveable
 
     [SerializeField] GameObject damageCanvas;
 
+    private static int count = 0;
+
     public bool IsAlive { get; private set; } = true;
 
     BaseStats baseStats;
@@ -42,10 +44,12 @@ public class Health : MonoBehaviour, ISaveable
 
     private void ShowUIDamage(float damage)////
     {
+        count += 1;
         GameObject damageUI=Instantiate(damageCanvas, transform.position+new Vector3(0,2,0), transform.rotation);
         damageUI.GetComponent<CameraFacing>().Text(damage);
         Destroy(damageUI, 2f);
         Debug.Log(damage);
+        Debug.Log(count);
     }
 
     public float GetPercentageHealth()

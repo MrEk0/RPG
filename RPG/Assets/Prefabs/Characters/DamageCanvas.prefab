@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4532752897744488963}
   - component: {fileID: 6699759774409588278}
   - component: {fileID: 7059637886447835903}
+  - component: {fileID: 6283617761393476446}
+  - component: {fileID: 5738583195580920724}
   m_Layer: 5
   m_Name: DamageCanvas
   m_TagString: Untagged
@@ -112,6 +114,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e364692bfbc8ed49acafd24eb2d47fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &6283617761393476446
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545615148410568630}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &5738583195580920724
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545615148410568630}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 772f73e483e3d5c4fa88d95abcd18e68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5462525345207462910
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,9 +215,9 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 50
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
