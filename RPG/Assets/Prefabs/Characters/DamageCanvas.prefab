@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7059637886447835903}
   - component: {fileID: 6283617761393476446}
   - component: {fileID: 5738583195580920724}
+  - component: {fileID: 4492320678605084516}
   m_Layer: 5
   m_Name: DamageCanvas
   m_TagString: Untagged
@@ -145,6 +146,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4492320678605084516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545615148410568630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c4fbea0c2139c4a9d6297ba06380a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5462525345207462910
 GameObject:
   m_ObjectHideFlags: 0
