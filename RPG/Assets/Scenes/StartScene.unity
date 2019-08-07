@@ -4212,7 +4212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1674636009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 186a95fd90130434aa507711a41f9f1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 377c204a817a87d4ca30937036d6cd00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1674636011
@@ -5213,6 +5213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2289821024583604460, guid: 394d1bc8ed478b44885335648d3aac1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394d1bc8ed478b44885335648d3aac1b, type: 3}
