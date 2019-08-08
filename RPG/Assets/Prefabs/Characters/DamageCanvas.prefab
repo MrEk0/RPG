@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c4fbea0c2139c4a9d6297ba06380a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageCanvas: {fileID: 3545615148410568630}
 --- !u!1 &5462525345207462910
 GameObject:
   m_ObjectHideFlags: 0

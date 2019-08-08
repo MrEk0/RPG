@@ -20,5 +20,10 @@ class DamageText : MonoBehaviour
     {
         damageText.text = damage.ToString();
     }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }
 //}

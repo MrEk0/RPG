@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour, ISaveable
 {
     [SerializeField] float health = -1f;
     [SerializeField] float regeneration = 70f;
+    [SerializeField] UnityEvent takeDamage;
 
-    [SerializeField] GameObject damageCanvas;////
+    //[SerializeField] GameObject damageCanvas;////
 
     //private static int count = 0;
 
@@ -34,7 +36,8 @@ public class Health : MonoBehaviour, ISaveable
     public void TakeDamage(GameObject initiator, float damage)
     {
         health -= damage;
-        ShowUIDamage(damage);////
+        //ShowUIDamage(damage);////
+        takeDamage.Invoke();
         if (health <= 0)
         {
             Death();
@@ -42,15 +45,15 @@ public class Health : MonoBehaviour, ISaveable
         }
     }
 
-    private void ShowUIDamage(float damage)////
-    {
-        //count += 1;
-        GameObject damageUI=Instantiate(damageCanvas, transform.position+new Vector3(0,2,0), transform.rotation);
-        damageUI.GetComponent<DamageText>().Text(damage);
-        Destroy(damageUI, 2f);
-        //Debug.Log(damage);
-        //Debug.Log(count);
-    }
+    //private void ShowUIDamage(float damage)////
+    //{
+    //    count += 1;
+    //    GameObject damageUI = Instantiate(damageCanvas, transform.position + new Vector3(0, 2, 0), transform.rotation);
+    //    damageUI.GetComponent<DamageText>().Text(damage);
+    //    Destroy(damageUI, 2f);
+    //    Debug.Log(damage);
+    //    Debug.Log(count);
+    //}
 
     public float GetPercentageHealth()
     {
