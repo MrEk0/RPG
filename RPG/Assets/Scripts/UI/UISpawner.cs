@@ -11,9 +11,10 @@ class UISpawner : MonoBehaviour
 {
     [SerializeField] GameObject damageCanvas;////
 
-    public void Spawn()
+    public void Spawn(float damage)
     {
         GameObject damageUI = Instantiate(damageCanvas, transform);
+        damageUI.GetComponent<DamageText>().Text(damage);
         //Destroy(damageUI, 2f);
     }
 }

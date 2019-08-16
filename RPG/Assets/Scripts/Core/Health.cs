@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +8,13 @@ public class Health : MonoBehaviour, ISaveable
 {
     [SerializeField] float health = -1f;
     [SerializeField] float regeneration = 70f;
-    [SerializeField] UnityEvent takeDamage;
+    [SerializeField] TakeDamageEvent takeDamage;//make it dynamic
+
+    [Serializable]
+    public class TakeDamageEvent:UnityEvent<float>// to make UnityEvent shows up 
+    {
+
+    }
 
     //[SerializeField] GameObject damageCanvas;////
 
@@ -37,7 +44,7 @@ public class Health : MonoBehaviour, ISaveable
     {
         health -= damage;
         //ShowUIDamage(damage);////
-        takeDamage.Invoke();
+        takeDamage.Invoke(damage);
         if (health <= 0)
         {
             Death();
