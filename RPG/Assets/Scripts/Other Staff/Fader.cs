@@ -18,17 +18,18 @@ public class Fader : MonoBehaviour
         canvasGroup.alpha = 1;
     }
 
-    public IEnumerator FadeOut(float time)
+    public Coroutine FadeOut(float time)// coroutine instead of IEnumerator to be able to move 
+                                        //the player while fadeIn implementation
     {
         return Fade(1, time);       
     } 
 
-    public IEnumerator FadeIn(float time)
+    public Coroutine FadeIn(float time)
     {
         return Fade(0, time);
     }
 
-    private IEnumerator Fade(float target, float time)
+    private Coroutine Fade(float target, float time)
     {
         if (activeCoroutine != null)
         {
@@ -36,7 +37,7 @@ public class Fader : MonoBehaviour
         }
 
         activeCoroutine = StartCoroutine(FadeImplementation(target, time));
-        yield return activeCoroutine;
+        return activeCoroutine;
     }
 
     private IEnumerator FadeImplementation(float target, float time)

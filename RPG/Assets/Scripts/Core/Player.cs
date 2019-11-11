@@ -11,14 +11,14 @@ public class Player : MonoBehaviour
     [SerializeField] float maxNavMeshDistance = 1f;
     [SerializeField] float maxPathDistance = 30f;
 
-    Fighter fighter;
+    //Fighter fighter;
     Mover mover;
     Health health;
 
     private void Awake()
     {
         health = GetComponent<Health>();
-        fighter = GetComponent<Fighter>();
+        //fighter = GetComponent<Fighter>();
         mover = GetComponent<Mover>();
     }
 
@@ -103,8 +103,8 @@ public class Player : MonoBehaviour
         RaycastHit hit;
 
         bool hasHit = Physics.Raycast(GetRay(), out hit);
-        bool hasCastToNavMesh=NavMesh.SamplePosition(
-            hit.point, out meshHit, maxNavMeshDistance, NavMesh.AllAreas);//look for the nearest navmesh position
+        //look for the nearest navmesh position
+        bool hasCastToNavMesh =NavMesh.SamplePosition(hit.point, out meshHit, maxNavMeshDistance, NavMesh.AllAreas);                             
         if (!hasCastToNavMesh)
             return false;
 

@@ -11,6 +11,7 @@ public class Portal : MonoBehaviour
     [SerializeField] SpawnPoints spawnPointDestination;
     [SerializeField] float fadeOutTime = 3f;
     [SerializeField] float fadeInTime = 2f;
+    [SerializeField] float fadeWaitTime = 3f;
 
     enum SpawnPoints
     {
@@ -30,12 +31,20 @@ public class Portal : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         Fader fader = FindObjectOfType<Fader>();
+        SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+
+        //remove player's control to escape of race condition
+        Player playerMovement= GameObject.FindWithTag("Player").GetComponent<Player>();
+        playerMovement.enabled = false;
+
         yield return fader.FadeOut(fadeOutTime);
 
-        SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
         savingWrapper.Save();
 
         yield return SceneManager.LoadSceneAsync(nextScene);
+        //remove player's control in a new scene
+        Player newPlayerMovement = GameObject.FindWithTag("Player").GetComponent<Player>();
+        newPlayerMovement.enabled = false;
 
         savingWrapper.Load();
 
@@ -44,8 +53,11 @@ public class Portal : MonoBehaviour
 
         savingWrapper.Save();
 
-        yield return fader.FadeIn(fadeInTime);
+        yield return new WaitForSeconds(fadeWaitTime);
+        fader.FadeIn(fadeInTime);
 
+        //return control
+        newPlayerMovement.enabled = true;
         Destroy(gameObject);
     }
 
