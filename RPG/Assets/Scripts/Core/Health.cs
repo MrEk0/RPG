@@ -42,29 +42,27 @@ public class Health : MonoBehaviour, ISaveable
 
     public void TakeDamage(GameObject initiator, float damage)
     {
-        health -= damage;
-        //ShowUIDamage(damage);////
-        takeDamage.Invoke(damage);
-        if (health <= 0)
+        health=Mathf.Max(health-damage, 0);
+  
+        if (health == 0)
         {
             Death();
             AwardXP(initiator);
         }
+        else
+        {
+            takeDamage.Invoke(damage);
+        }
     }
-
-    //private void ShowUIDamage(float damage)////
-    //{
-    //    count += 1;
-    //    GameObject damageUI = Instantiate(damageCanvas, transform.position + new Vector3(0, 2, 0), transform.rotation);
-    //    damageUI.GetComponent<DamageText>().Text(damage);
-    //    Destroy(damageUI, 2f);
-    //    Debug.Log(damage);
-    //    Debug.Log(count);
-    //}
 
     public float GetPercentageHealth()
     {
-        return 100 * (health / baseStats.GetStat(Stats.Health));
+        return 100 * GetHealthFraction();
+    }
+
+    public float GetHealthFraction()
+    {
+        return health / baseStats.GetStat(Stats.Health);
     }
 
     public float GetHealth()
