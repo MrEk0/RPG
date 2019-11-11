@@ -5,10 +5,12 @@ using UnityEngine;
 public class Fader : MonoBehaviour
 {
     CanvasGroup canvasGroup;
+    Coroutine activeCoroutine;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        activeCoroutine = null;
     }
 
     public void FadeOutImmediate()
@@ -18,18 +20,30 @@ public class Fader : MonoBehaviour
 
     public IEnumerator FadeOut(float time)
     {
-        while (canvasGroup.alpha < 1) 
-        {
-            canvasGroup.alpha += Time.deltaTime / time;
-            yield return null;
-        }         
-    }
+        return Fade(1, time);       
+    } 
 
     public IEnumerator FadeIn(float time)
     {
-        while (canvasGroup.alpha > 0)
+        return Fade(0, time);
+    }
+
+    private IEnumerator Fade(float target, float time)
+    {
+        if (activeCoroutine != null)
         {
-            canvasGroup.alpha -= Time.deltaTime / time;
+            StopCoroutine(activeCoroutine);
+        }
+
+        activeCoroutine = StartCoroutine(FadeImplementation(target, time));
+        yield return activeCoroutine;
+    }
+
+    private IEnumerator FadeImplementation(float target, float time)
+    {
+        while (!Mathf.Approximately(canvasGroup.alpha, target))
+        {
+            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, target, Time.deltaTime / time);
             yield return null;
         }
     }

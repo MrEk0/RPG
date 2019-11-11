@@ -72,4 +72,9 @@ public class Portal : MonoBehaviour
         player.transform.rotation = otherPortal.spawnPoint.rotation;
         player.GetComponent<NavMeshAgent>().enabled = true;
     }
+
+    public float GetFadeInTime()
+    {
+        return fadeInTime;
+    }
 }

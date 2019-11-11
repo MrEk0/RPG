@@ -6,14 +6,17 @@ public class SavingWrapper : MonoBehaviour
 {
     const string fileName = "filedirectory";
 
-    [SerializeField] float fadeInTime = 1f;
+    //[SerializeField] float fadeInTime = 1f;
+    [SerializeField] Portal portal;
 
     SavingSystem savingSystem;
+    float fadeInTime;
 
     private void Awake()
     {
         savingSystem = GetComponent<SavingSystem>();
         StartCoroutine(LoadLastScene());
+        fadeInTime = portal.GetFadeInTime();
     }
 
     private IEnumerator LoadLastScene()

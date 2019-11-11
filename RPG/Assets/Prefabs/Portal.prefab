@@ -75,8 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e102915467bbeb04c9fecbdd0144ff7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: 0
   spawnPoint: {fileID: 2631588628439676384}
   spawnPointDestination: 0
+  fadeOutTime: 2
+  fadeInTime: 3
 --- !u!1 &9045069912434940214
 GameObject:
   m_ObjectHideFlags: 0

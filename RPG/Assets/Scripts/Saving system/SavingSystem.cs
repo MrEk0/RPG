@@ -32,6 +32,7 @@ public class SavingSystem : MonoBehaviour
     private void SaveFile(string fileName, object state)
     {
         string path = GetPathFromFile(fileName);
+        print(path);
         using (FileStream stream = File.Open(path, FileMode.Create))
         {
             BinaryFormatter formatter = new BinaryFormatter();
