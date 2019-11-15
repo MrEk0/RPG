@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 {
@@ -8,6 +9,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
     [SerializeField] Weapon defaultWeapon=null;
+    [SerializeField] UnityEvent hitSoundEvent;
   
     Mover mover;
     Health target;
@@ -87,6 +89,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
         if (target == null)
             return;
 
+        hitSoundEvent.Invoke();
         float damage = baseStats.GetStat(Stats.Damage);
         target.TakeDamage(gameObject, damage);
     }

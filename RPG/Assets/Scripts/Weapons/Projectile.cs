@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] bool isTargeted;
     [SerializeField] GameObject fireTouchingParticles;
+    [SerializeField] UnityEvent hitSound;
 
     Transform prTransform;
     Health target=null;
@@ -15,7 +17,7 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        prTransform = GetComponent<Transform>();//to get rid of transform in Update;?
+        prTransform = GetComponent<Transform>();//to get rid of transform in Update;
         prTransform.LookAt(goalForProjectile());
     }
 
@@ -61,6 +63,7 @@ public class Projectile : MonoBehaviour
 
             target.TakeDamage(initiator, damage);
 
+            hitSound.Invoke();//play music sound
             if(fireTouchingParticles!=null)
             {
                 GameObject particles = Instantiate(fireTouchingParticles, transform.position, transform.rotation);

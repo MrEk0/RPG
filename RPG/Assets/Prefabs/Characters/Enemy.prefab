@@ -248,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 3612200066351312223, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3612200066351312223, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
@@ -277,15 +277,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
-      propertyPath: health
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
-        type: 3}
       propertyPath: damageCanvas
       value: 
       objectReference: {fileID: 3545615148410568630, guid: d6f32b93a8b1c7241ad41684773c6e9b,
         type: 3}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: health
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3833198808946072978, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: progression

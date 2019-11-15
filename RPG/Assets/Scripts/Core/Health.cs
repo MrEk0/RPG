@@ -9,6 +9,7 @@ public class Health : MonoBehaviour, ISaveable
     [SerializeField] float health = -1f;
     [SerializeField] float regeneration = 70f;
     [SerializeField] TakeDamageEvent takeDamage;//make it dynamic
+    [SerializeField] UnityEvent deathEvent;
 
     [Serializable]
     public class TakeDamageEvent:UnityEvent<float>// to make UnityEvent shows up 
@@ -46,6 +47,7 @@ public class Health : MonoBehaviour, ISaveable
   
         if (health == 0)
         {
+            deathEvent.Invoke();
             Death();
             AwardXP(initiator);
         }
