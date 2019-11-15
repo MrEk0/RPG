@@ -17,10 +17,6 @@ public class Health : MonoBehaviour, ISaveable
 
     }
 
-    //[SerializeField] GameObject damageCanvas;////
-
-    //private static int count = 0;
-
     public bool IsAlive { get; private set; } = true;
 
     BaseStats baseStats;
@@ -55,6 +51,11 @@ public class Health : MonoBehaviour, ISaveable
         {
             takeDamage.Invoke(damage);
         }
+    }
+
+    public void Heal(float healPoints)
+    {
+        health = Mathf.Min(health + healPoints, GetMaxHealth());
     }
 
     public float GetPercentageHealth()

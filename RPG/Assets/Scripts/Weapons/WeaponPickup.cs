@@ -7,19 +7,30 @@ public class WeaponPickup : MonoBehaviour, IRaycastable
 {
     [SerializeField] WeaponConfig weapon;
     [SerializeField] float hideTime = 3f;
+    [SerializeField] float pointsToHeal = 20f;
 
     private void OnTriggerEnter(Collider collider)
     {
         if(collider.gameObject.CompareTag("Player"))
         {
-            Pickup(collider.GetComponent<Fighter>());
+            Pickup(collider.gameObject);
         }
     }
 
-    private void Pickup(Fighter fighter)
+    private void Pickup(GameObject character)
     {
-        fighter.EquipWeapon(weapon);
+        if (weapon != null)
+        {
+            character.GetComponent<Fighter>().EquipWeapon(weapon);
+        }
+
+        if (pointsToHeal > 0)
+        {
+            character.GetComponent<Health>().Heal(pointsToHeal);
+        }
+
         StartCoroutine(HideAndShow(hideTime));
+        
     }
 
     IEnumerator HideAndShow(float hideTime)
@@ -51,7 +62,7 @@ public class WeaponPickup : MonoBehaviour, IRaycastable
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Pickup(player.GetComponent<Fighter>());//to pick up immediately before getting closer;
+            Pickup(player.gameObject);//to pick up immediately before getting closer;
         }
         return true;
     }

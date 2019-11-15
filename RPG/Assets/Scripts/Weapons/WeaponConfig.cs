@@ -15,15 +15,16 @@ public class WeaponConfig:ScriptableObject
 
     const string weaponName = "Weapon";
 
-    public void Spawner(Transform rightHand, Transform leftHand, Animator animator)
+    public Weapon Spawner(Transform rightHand, Transform leftHand, Animator animator)
     {
         DestroyOldWeapon(rightHand, leftHand);
+        Weapon weapon = null;
 
         if(weaponPrefab!=null)
         {
             handPosition = GetHandPosition(rightHand, leftHand);
 
-            Weapon weapon=Instantiate(weaponPrefab, handPosition);
+            weapon=Instantiate(weaponPrefab, handPosition);
             weapon.gameObject.name = weaponName;
         }
 
@@ -38,6 +39,7 @@ public class WeaponConfig:ScriptableObject
             animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;//find parent and put in the runtime animator
                                                                                               //in case of overridden
         }
+        return weapon;
     }
 
     private void DestroyOldWeapon(Transform rightHand, Transform leftHand)

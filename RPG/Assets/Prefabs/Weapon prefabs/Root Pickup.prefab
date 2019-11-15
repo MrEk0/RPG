@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 3340292834f0fc4448d59969d65f431e, type: 2}
+  hideTime: 3
+  pointsToHeal: 0
 --- !u!65 &2664810534280172484
 BoxCollider:
   m_ObjectHideFlags: 0

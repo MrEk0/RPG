@@ -15,7 +15,8 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     Health target;
     ActionSchedule actionSchedule;
     Animator animator;
-    WeaponConfig currentWeapon=null;
+    WeaponConfig currentWeaponConfig=null;
+    Weapon currentWeapon;//new
     BaseStats baseStats=null;
     float timeSinceLastAttack = Mathf.Infinity;
 
@@ -30,7 +31,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     // Start is called before the first frame update
     void Start()
     {
-        if(currentWeapon==null)
+        if(currentWeaponConfig==null)
         EquipWeapon(defaultWeapon);
     }
 
@@ -56,9 +57,13 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 
     public void EquipWeapon(WeaponConfig weapon)
     {
-        currentWeapon = weapon;
-        //currentWeapon.Spawner(rightHandPosition, leftHandPosition, animator);
-        weapon.Spawner(rightHandPosition, leftHandPosition, animator);
+        currentWeaponConfig = weapon;
+        currentWeapon=AttachWeapon(weapon);
+    }
+
+    private Weapon AttachWeapon(WeaponConfig weapon)
+    {
+        return weapon.Spawner(rightHandPosition, leftHandPosition, animator);
     }
 
     private void AttackBehaviour()
@@ -89,6 +94,11 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
         if (target == null)
             return;
 
+        if (currentWeapon != null)
+        {
+            currentWeapon.OnHit();
+        }
+
         hitSoundEvent.Invoke();
         float damage = baseStats.GetStat(Stats.Damage);
         target.TakeDamage(gameObject, damage);
@@ -100,9 +110,15 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
             return;
 
         float damage = baseStats.GetStat(Stats.Damage);
-        if(currentWeapon.isHasProjectile())
+
+        if(currentWeapon!=null)
         {
-            currentWeapon.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target, damage);
+            currentWeapon.OnHit();
+        }
+
+        if(currentWeaponConfig.isHasProjectile())
+        {
+            currentWeaponConfig.LaunchTheProjectile(gameObject, rightHandPosition, leftHandPosition, target, damage);
         }
         else
         {
@@ -112,7 +128,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 
     private bool GetIsInRange()
     {
-        return Vector3.Distance(transform.position, target.transform.position) > currentWeapon.GetRange();
+        return Vector3.Distance(transform.position, target.transform.position) > currentWeaponConfig.GetRange();
     }
 
     public void AttackTheTarget(GameObject target)
@@ -143,15 +159,15 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     {
         if (stat == Stats.Damage)
         {
-            return currentWeapon.GetDamage();
+            return currentWeaponConfig.GetDamage();
         }
         return 0f;
     }
 
     public object CaptureState()
     {
-        Debug.Log($"{currentWeapon.name}+{gameObject.name}");
-        return currentWeapon.name;
+        Debug.Log($"{currentWeaponConfig.name}+{gameObject.name}");
+        return currentWeaponConfig.name;
     }
 
     public void RestoreState(object state)

@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 3612200066351312223, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3612200066351312223, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
@@ -251,7 +251,7 @@ PrefabInstance:
         type: 3}
       propertyPath: defaultWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 9206be4a6396f0743bd0890d17eec92a,
+      objectReference: {fileID: 11400000, guid: 3340292834f0fc4448d59969d65f431e,
         type: 2}
     - target: {fileID: 4918734670716797282, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
