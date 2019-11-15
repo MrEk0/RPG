@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour, IRaycastable
 {
-    [SerializeField] WeaponConfig weapon;
+    [SerializeField] Weapon weapon;
     [SerializeField] float hideTime = 3f;
 
     private void OnTriggerEnter(Collider collider)

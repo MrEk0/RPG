@@ -8,13 +8,14 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     [SerializeField] float timeBetweenAttacks = 2f;
     [SerializeField] Transform rightHandPosition = null;
     [SerializeField] Transform leftHandPosition = null;
-    [SerializeField] WeaponConfig defaultWeapon=null;
+    [SerializeField] Weapon defaultWeapon=null;
+    [SerializeField] UnityEvent hitSoundEvent;
   
     Mover mover;
     Health target;
     ActionSchedule actionSchedule;
     Animator animator;
-    WeaponConfig currentWeapon=null;
+    Weapon currentWeapon=null;
     BaseStats baseStats=null;
     float timeSinceLastAttack = Mathf.Infinity;
 
@@ -53,7 +54,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
         }
     }
 
-    public void EquipWeapon(WeaponConfig weapon)
+    public void EquipWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
         //currentWeapon.Spawner(rightHandPosition, leftHandPosition, animator);
@@ -88,6 +89,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
         if (target == null)
             return;
 
+        hitSoundEvent.Invoke();
         float damage = baseStats.GetStat(Stats.Damage);
         target.TakeDamage(gameObject, damage);
     }
@@ -155,7 +157,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
     public void RestoreState(object state)
     {
         string weaponName = (string)state;
-        WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
+        Weapon weapon = Resources.Load<Weapon>(weaponName);
         EquipWeapon(weapon);
     }
 
