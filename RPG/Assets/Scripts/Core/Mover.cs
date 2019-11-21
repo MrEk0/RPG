@@ -7,7 +7,9 @@ public class Mover : MonoBehaviour, IAction, ISaveable
 {
     [SerializeField] GameObject target;
     [SerializeField] float maxSpeed = 6f;
-    
+    [SerializeField] float maxPathDistance = 30f;
+
+
     private NavMeshAgent navMeshAgent;
     private Animator animator;
     ActionSchedule actionSchedule;
@@ -40,6 +42,33 @@ public class Mover : MonoBehaviour, IAction, ISaveable
     {
         actionSchedule.StartAction(this);
         SetDestination(target, speedFraction);
+    }
+
+    public bool CanMoveTo(Vector3 destination)
+    {
+        NavMeshPath path = new NavMeshPath();//a list of waypoints stored in the corners array
+        bool hasPath = NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
+        if (!hasPath)
+            return false;
+        if (path.status != NavMeshPathStatus.PathComplete)
+            return false; // to avoid a possible movement to a "walkable" position which is not achievable
+        if (GetLengthPath(path) > maxPathDistance)
+            return false;
+
+        return true;
+    }
+
+    private float GetLengthPath(NavMeshPath path)//the full distance to the target
+    {
+        float pathDistance = 0f;
+
+        if (path.corners.Length < 2)
+            return pathDistance;
+        for (int i = 0; i < path.corners.Length - 1; i++)
+        {
+            pathDistance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+        }
+        return pathDistance;
     }
 
     public void SetDestination(Vector3 target, float speedFraction)

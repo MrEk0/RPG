@@ -148,6 +148,9 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 
     public bool CanAttack(GameObject enemy)
     {
+        if (!GetComponent<Mover>().CanMoveTo(enemy.transform.position))
+            return false;
+
         if (enemy != null)
         {
             return enemy.GetComponent<Health>().IsAlive;
@@ -166,7 +169,7 @@ public class Fighter : MonoBehaviour, IAction, ISaveable, IModifier
 
     public object CaptureState()
     {
-        Debug.Log($"{currentWeaponConfig.name}+{gameObject.name}");
+        //Debug.Log($"{currentWeaponConfig.name}+{gameObject.name}");
         return currentWeaponConfig.name;
     }
 

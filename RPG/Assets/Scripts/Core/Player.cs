@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] CursorMapping[] cursorMapping = null;
     [SerializeField] float maxNavMeshDistance = 1f;
-    [SerializeField] float maxPathDistance = 30f;
+    //[SerializeField] float maxPathDistance = 30f;
 
     //Fighter fighter;
     Mover mover;
@@ -85,6 +85,9 @@ public class Player : MonoBehaviour
         bool hasHit = RaycastNavMesh(out target);
         if (hasHit)
         {
+            if (!GetComponent<Mover>().CanMoveTo(target))
+                return false;
+
             if (Input.GetMouseButton(0))
             {
                 mover.StartMovement(target, 1f);
@@ -110,30 +113,30 @@ public class Player : MonoBehaviour
 
         target = meshHit.position;
 
-        NavMeshPath path = new NavMeshPath();////a list of waypoints stored in the corners array
-        bool hasPath=NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
-        if (!hasPath)
-            return false;
-        if (path.status != NavMeshPathStatus.PathComplete)
-            return false; // to avoid a possible movement to a "walkable" position which is not achievable
-        if (GetLengthPath(path) > maxPathDistance)
-            return false;
+        //NavMeshPath path = new NavMeshPath();//a list of waypoints stored in the corners array
+        //bool hasPath=NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+        //if (!hasPath)
+        //    return false;
+        //if (path.status != NavMeshPathStatus.PathComplete)
+        //    return false; // to avoid a possible movement to a "walkable" position which is not achievable
+        //if (GetLengthPath(path) > maxPathDistance)
+        //    return false;
 
         return true;
     }
 
-    private float GetLengthPath(NavMeshPath path)//the full distance to the target
-    {
-        float pathDistance = 0f;
+    //private float GetLengthPath(NavMeshPath path)//the full distance to the target
+    //{
+    //    float pathDistance = 0f;
 
-        if (path.corners.Length < 2)
-            return pathDistance;
-        for (int i = 0; i < path.corners.Length - 1; i++)
-        {
-            pathDistance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-        }
-        return pathDistance;
-    }
+    //    if (path.corners.Length < 2)
+    //        return pathDistance;
+    //    for (int i = 0; i < path.corners.Length - 1; i++)
+    //    {
+    //        pathDistance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+    //    }
+    //    return pathDistance;
+    //}
 
     private void SetCursor(Cursors cursor)
     {
