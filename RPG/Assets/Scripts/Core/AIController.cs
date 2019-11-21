@@ -6,8 +6,10 @@ public class AIController : MonoBehaviour
 {
     [SerializeField] float chaseRange = 5f;
     [SerializeField] float suspectTime = 2f;
+    [SerializeField] float agroCooldownTime = 3f;
     [SerializeField] float stopTime = 3f;
     [SerializeField] float attackSpeed = 3f;
+    [SerializeField] float shoutDistance = 5f;
     [Range(0,1)]
     [SerializeField] float patrolSpeedFraction = 0.3f;
     [SerializeField] AIPath path;
@@ -20,6 +22,7 @@ public class AIController : MonoBehaviour
     ActionSchedule actionSchedule;
 
     float timeSinceLastSawPlayer = Mathf.Infinity;
+    float timeSinceAggravated = Mathf.Infinity;
     int currentWayPoint = 0;
     float timeSinceStop = Mathf.Infinity;
 
@@ -43,10 +46,12 @@ public class AIController : MonoBehaviour
     {
         if (!health.IsAlive) return;
 
-        if (GetDisstanceToPlayer() < chaseRange && fighter.CanAttack(player))
+        if (IsAggravated()  && fighter.CanAttack(player))
         {
             timeSinceLastSawPlayer = 0f;
             fighter.AttackTheTarget(player);
+
+            AggravateNearbyEnemies();
         }
         else if (timeSinceLastSawPlayer < suspectTime) 
         {
@@ -59,6 +64,12 @@ public class AIController : MonoBehaviour
 
         timeSinceLastSawPlayer += Time.deltaTime;
         timeSinceStop += Time.deltaTime;
+        timeSinceAggravated += Time.deltaTime;
+    }
+
+    public void Aggravate()
+    {
+        timeSinceAggravated = 0f;
     }
 
     private void PatrolBehaviour()
@@ -93,9 +104,24 @@ public class AIController : MonoBehaviour
         return path.GetChildPosition(currentWayPoint);
     }
 
-    private float GetDisstanceToPlayer()
+    private bool IsAggravated()
     {
-        return Vector3.Distance(transform.position, player.transform.position);
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        return distance < chaseRange || timeSinceAggravated < agroCooldownTime;
+    }
+
+    private void AggravateNearbyEnemies()
+    {
+        RaycastHit[] hits=Physics.SphereCastAll(transform.position, shoutDistance, Vector3.up, 0);
+        for(int i=0; i<hits.Length; i++)
+        {
+            AIController controller = hits[i].transform.GetComponent<AIController>();
+            if (controller == null)
+                continue;
+
+            controller.Aggravate();
+        }
     }
 
     private void OnDrawGizmosSelected()

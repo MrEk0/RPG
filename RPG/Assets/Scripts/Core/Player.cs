@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] CursorMapping[] cursorMapping = null;
     [SerializeField] float maxNavMeshDistance = 1f;
+    [SerializeField] float castRadius = 1f;
     //[SerializeField] float maxPathDistance = 30f;
 
     //Fighter fighter;
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour
 
     private RaycastHit[] SortAllRaycast()
     {
-        RaycastHit[] hits = Physics.RaycastAll(GetRay());
+        RaycastHit[] hits = Physics.SphereCastAll(GetRay(), castRadius);
         float[] distances = new float[hits.Length];
         for (int i= 0; i<distances.Length; i++)
         {

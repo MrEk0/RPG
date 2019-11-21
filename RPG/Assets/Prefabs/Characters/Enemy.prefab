@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 5
   suspectTime: 2
+  agroCooldownTime: 3
   stopTime: 3
   attackSpeed: 3
   patrolSpeedFraction: 0.3
@@ -277,6 +278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
       propertyPath: damageCanvas
       value: 
       objectReference: {fileID: 3545615148410568630, guid: d6f32b93a8b1c7241ad41684773c6e9b,
@@ -305,6 +311,31 @@ PrefabInstance:
         type: 3}
       propertyPath: health
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 2894670702677437499}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Aggravate
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827997576526491610, guid: 7949d1e005427214b8790d46a6aa9cb2,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3833198808946072978, guid: 7949d1e005427214b8790d46a6aa9cb2,
         type: 3}
